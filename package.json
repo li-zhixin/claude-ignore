@@ -1,0 +1,44 @@
+{
+  "name": "claude-ignore",
+  "version": "0.0.0",
+  "description": "A Claude Code PreToolUse hook that prevents Claude from reading files that match patterns in .claudeignore files, similar to how .gitignore works.",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://github.com/li-zhixin/claude-ignore#readme",
+  "bugs": {
+    "url": "https://github.com/li-zhixin/claude-ignore/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/li-zhixin/claude-ignore.git"
+  },
+  "author": "li-zhixin <1661360354@qq.com>",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "typecheck": "tsc --noEmit",
+    "release": "bumpp && npm publish"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.17",
+    "bumpp": "^10.1.0",
+    "tsdown": "^0.11.9",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "ignore": "^7.0.5"
+  }
+}
