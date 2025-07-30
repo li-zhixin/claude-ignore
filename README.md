@@ -12,15 +12,28 @@ A Claude Code PreToolUse hook that prevents Claude from reading files that match
 - Exits with code 2 when a path is ignored, preventing Claude from reading the file
 - Filters out comments (lines starting with #) and empty lines
 
-## Setup
+## Quick Start
+
+### Option 1: Auto Setup (Recommended)
+
+Run the init command in your project directory:
+
+```bash
+npx claudeignore init
+```
+
+This will:
+
+- Create a `.claudeignore` file if it doesn't exist
+- Set up `.claude/settings.json` with the necessary hook configuration
+- If `.claude/settings.json` already exists, it will show you the template configuration for manual merging
+
+### Option 2: Manual Setup
 
 1. Create a `.claudeignore` file in your project root with patterns to ignore:
 
 ```
-node_modules/
-*.log
 .env
-dist/
 *.secret
 ```
 
@@ -43,6 +56,20 @@ dist/
   }
 }
 ```
+
+## Commands
+
+### `npx claudeignore init`
+
+Initializes claude-ignore configuration in your project:
+
+- Creates `.claudeignore` file from template if it doesn't exist
+- Creates `.claude/settings.json` with hook configuration if it doesn't exist
+- Shows template configuration for manual merging if `.claude/settings.json` already exists
+
+### `npx claudeignore` (default)
+
+Checks if a file should be ignored based on `.claudeignore` patterns. This is used internally by Claude Code as a PreToolUse hook.
 
 ## How it works
 

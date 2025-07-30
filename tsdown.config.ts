@@ -6,5 +6,6 @@ export default defineConfig([
     platform: "node",
     dts: true,
     external: ["fs", "path"],
+    copy: ["src/settings.json", "src/.claudeignore"],
   },
 ]);
