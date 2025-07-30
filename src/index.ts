@@ -17,7 +17,7 @@ async function runInit() {
   const __filename = fileURLToPath(import.meta.url);
   const packageDir = dirname(dirname(__filename));
   const templateClaudeignore = join(packageDir, "dist", ".claudeignore");
-  let templateSettings = join(packageDir, "src", "settings.json");
+  let templateSettings = join(packageDir, "dist", "settings.json");
 
   // Copy .claudeignore if it doesn't exist
   if (!existsSync(claudeignorePath)) {
