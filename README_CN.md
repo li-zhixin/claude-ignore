@@ -17,7 +17,7 @@
 在项目目录中运行初始化命令：
 
 ```bash
-npx claudeignore init
+npx -y claudeignore init
 ```
 
 此命令将：
@@ -46,7 +46,7 @@ npx claudeignore init
         "hooks": [
           {
             "type": "command",
-            "command": "npx claudeignore"
+            "command": "npx -y claudeignore"
           }
         ]
       }
@@ -57,7 +57,7 @@ npx claudeignore init
 
 ## 命令说明
 
-### `npx claudeignore init`
+### `npx -y claudeignore init`
 
 在项目中初始化 claude-ignore 配置：
 
@@ -65,7 +65,7 @@ npx claudeignore init
 - 如果不存在则创建带有钩子配置的 `.claude/settings.json`
 - 如果 `.claude/settings.json` 已存在，则显示模板配置供手动合并
 
-### `npx claudeignore`（默认）
+### `npx -y claudeignore`（默认）
 
 根据 `.claudeignore` 模式检查文件是否应被忽略。这由 Claude Code 作为 PreToolUse 钩子内部使用。
 

@@ -19,7 +19,7 @@ A Claude Code PreToolUse hook that prevents Claude from reading files that match
 Run the init command in your project directory:
 
 ```bash
-npx claudeignore init
+npx -y claudeignore init
 ```
 
 This will:
@@ -48,7 +48,7 @@ This will:
         "hooks": [
           {
             "type": "command",
-            "command": "npx claudeignore"
+            "command": "npx -y claudeignore"
           }
         ]
       }
@@ -59,7 +59,7 @@ This will:
 
 ## Commands
 
-### `npx claudeignore init`
+### `npx -y claudeignore init`
 
 Initializes claude-ignore configuration in your project:
 
@@ -67,7 +67,7 @@ Initializes claude-ignore configuration in your project:
 - Creates `.claude/settings.json` with hook configuration if it doesn't exist
 - Shows template configuration for manual merging if `.claude/settings.json` already exists
 
-### `npx claudeignore` (default)
+### `npx -y claudeignore` (default)
 
 Checks if a file should be ignored based on `.claudeignore` patterns. This is used internally by Claude Code as a PreToolUse hook.
 
