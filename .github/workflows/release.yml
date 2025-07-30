@@ -22,13 +22,8 @@ jobs:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: latest
-
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Extract version from tag
         id: extract_version
@@ -43,14 +38,9 @@ jobs:
           git commit -m "chore: bump version to ${{ steps.extract_version.outputs.version }}" || exit 0
 
       - name: Build
-        run: pnpm run build
+        run: npm run build
 
       - name: Publish to npm
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub Release
-        run: npx changelogithub
-        env:
-          GITHUB_TOKEN: ${{ secrets.G_TOKEN }}

@@ -1,5 +1,5 @@
 {
-  "name": "claude-ignore",
+  "name": "claudeignore",
   "version": "0.0.0",
   "description": "A Claude Code PreToolUse hook that prevents Claude from reading files that match patterns in .claudeignore files, similar to how .gitignore works.",
   "type": "module",
@@ -19,6 +19,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
+  "bin": {
+    "claude-ignore": "dist/index.js"
+  },
   "exports": {
     ".": "./dist/index.js",
     "./package.json": "./package.json"

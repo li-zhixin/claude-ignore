@@ -35,7 +35,7 @@ dist/
         "hooks": [
           {
             "type": "command",
-            "command": "npx claude-ignore"
+            "command": "npx claudeignore"
           }
         ]
       }

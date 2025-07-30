@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import ignore from "ignore";
 import { existsSync, readFileSync } from "fs";
 import { join, relative } from "path";
