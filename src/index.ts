@@ -2,7 +2,7 @@
 
 import ignore from "ignore";
 import { existsSync, readFileSync, mkdirSync, copyFileSync } from "fs";
-import { join, relative, dirname } from "path";
+import { join, relative, dirname, isAbsolute } from "path";
 import { fileURLToPath } from "url";
 
 async function runInit() {
@@ -106,7 +106,12 @@ async function main() {
     const relativePath = relative(process.cwd(), readPath);
     console.log(`Checking relative path: ${relativePath}`);
 
-    if (ig.ignores(relativePath)) {
+    // Skip ignore check if path is outside current directory or on different drive
+    if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
+      console.log(
+        `Skipping ignore check for path outside working directory: ${relativePath}`
+      );
+    } else if (ig.ignores(relativePath)) {
       console.error(`Path ${readPath} is ignored by .claudeignore`);
       process.exit(2);
     }
