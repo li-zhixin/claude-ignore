@@ -6,11 +6,12 @@ A Claude Code PreToolUse hook that prevents Claude from reading files that match
 
 ## Features
 
-- Reads `.claudeignore` patterns from the current working directory
+- **Hierarchical .claudeignore support**: Automatically discovers and applies `.claudeignore` files from the current directory up to the root
 - Supports standard gitignore-style patterns
 - Works as a Claude Code PreToolUse hook
 - Exits with code 2 when a path is ignored, preventing Claude from reading the file
 - Filters out comments (lines starting with #) and empty lines
+- Flexible project configuration with multiple ignore levels
 
 ## Quick Start
 
@@ -75,10 +76,16 @@ Checks if a file should be ignored based on `.claudeignore` patterns. This is us
 
 When Claude tries to read a file, this hook:
 
-1. Reads `.claudeignore` patterns from the current directory
-2. Checks if the file path matches any ignore patterns
-3. If matched, exits with code 2 to block the read operation
-4. If not matched, allows Claude to proceed with reading the file
+1. **Discovers all `.claudeignore` files**: Starting from the current directory, it searches upward through parent directories to find all `.claudeignore` files
+2. **Loads ignore patterns hierarchically**: Patterns from all discovered files are combined, with files closer to the root being processed first
+3. Checks if the file path matches any ignore patterns from any level
+4. If matched, exits with code 2 to block the read operation
+5. If not matched, allows Claude to proceed with reading the file
+
+This hierarchical approach allows for flexible project configuration where you can have:
+- Global ignore patterns at the project root
+- Specific ignore patterns in subdirectories
+- Different ignore rules for different parts of your project
 
 ## Development
 
