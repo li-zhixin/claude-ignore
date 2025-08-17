@@ -2,8 +2,34 @@
 
 import ignore from "ignore";
 import { existsSync, readFileSync, mkdirSync, copyFileSync } from "fs";
-import { join, relative, dirname, isAbsolute } from "path";
+import { join, relative, dirname, isAbsolute, resolve, parse } from "path";
 import { fileURLToPath } from "url";
+
+function findClaudeignoreFiles(startPath: string): string[] {
+  const claudeignoreFiles: string[] = [];
+  let currentPath = resolve(startPath);
+  
+  while (true) {
+    const claudeignorePath = join(currentPath, ".claudeignore");
+    if (existsSync(claudeignorePath)) {
+      claudeignoreFiles.push(claudeignorePath);
+    }
+    
+    const parentPath = dirname(currentPath);
+    if (parentPath === currentPath) {
+      break;
+    }
+    
+    const parsed = parse(currentPath);
+    if (parsed.root === currentPath) {
+      break;
+    }
+    
+    currentPath = parentPath;
+  }
+  
+  return claudeignoreFiles.reverse();
+}
 
 async function runInit() {
   console.log("Initializing Claude ignore configuration...");
@@ -69,22 +95,31 @@ async function main() {
   }
   console.log(`Current file directory: ${process.cwd()}`);
 
-  const claudeignoreFile = join(process.cwd(), ".claudeignore");
+  const claudeignoreFiles = findClaudeignoreFiles(process.cwd());
   let ig = ignore();
+  let totalPatterns = 0;
 
   try {
-    if (existsSync(claudeignoreFile)) {
-      const content = readFileSync(claudeignoreFile, "utf8");
-      const lines = content.split(/\r?\n|\r/);
-      const patterns = lines
-        .map((line) => line.trim())
-        .filter((line) => line && !line.startsWith("#"));
+    if (claudeignoreFiles.length > 0) {
+      console.log(`Found ${claudeignoreFiles.length} .claudeignore file(s):`);
+      claudeignoreFiles.forEach(file => console.log(`  ${file}`));
+      
+      for (const claudeignoreFile of claudeignoreFiles) {
+        const content = readFileSync(claudeignoreFile, "utf8");
+        const lines = content.split(/\r?\n|\r/);
+        const patterns = lines
+          .map((line) => line.trim())
+          .filter((line) => line && !line.startsWith("#"));
 
-      if (patterns.length > 0) {
-        ig = ig.add(patterns);
-        console.log(
-          `Loaded ${patterns.length} ignore patterns from .claudeignore`
-        );
+        if (patterns.length > 0) {
+          ig = ig.add(patterns);
+          totalPatterns += patterns.length;
+          console.log(`  Loaded ${patterns.length} patterns from ${claudeignoreFile}`);
+        }
+      }
+      
+      if (totalPatterns > 0) {
+        console.log(`Total: ${totalPatterns} ignore patterns loaded`);
       }
     } else {
       console.log(".claudeignore file not found, using empty ignore patterns");
