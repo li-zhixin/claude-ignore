@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y claudeignore"
+            "command": "claude-ignore"
           }
         ]
       }

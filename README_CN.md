@@ -11,6 +11,20 @@
 - 过滤注释行（以 # 开头）和空行
 - 灵活的项目配置，支持多层级忽略规则
 
+## 安装
+
+全局安装以在所有项目中使用：
+
+```bash
+npm install -g claudeignore
+```
+
+更新到最新版本：
+
+```bash
+npm update -g claudeignore
+```
+
 ## 快速开始
 
 ### 方式一：自动配置（推荐）
@@ -18,7 +32,7 @@
 在项目目录中运行初始化命令：
 
 ```bash
-npx -y claudeignore init
+claude-ignore init
 ```
 
 此命令将：
@@ -47,7 +61,7 @@ npx -y claudeignore init
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y claudeignore"
+            "command": "claude-ignore"
           }
         ]
       }
@@ -58,7 +72,7 @@ npx -y claudeignore init
 
 ## 命令说明
 
-### `npx -y claudeignore init`
+### `claude-ignore init`
 
 在项目中初始化 claude-ignore 配置：
 
@@ -66,7 +80,7 @@ npx -y claudeignore init
 - 如果不存在则创建带有钩子配置的 `.claude/settings.json`
 - 如果 `.claude/settings.json` 已存在，则显示模板配置供手动合并
 
-### `npx -y claudeignore`（默认）
+### `claude-ignore`（默认）
 
 根据 `.claudeignore` 模式检查文件是否应被忽略。这由 Claude Code 作为 PreToolUse 钩子内部使用。
 

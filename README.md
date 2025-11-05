@@ -13,6 +13,20 @@ A Claude Code PreToolUse hook that prevents Claude from reading files that match
 - Filters out comments (lines starting with #) and empty lines
 - Flexible project configuration with multiple ignore levels
 
+## Installation
+
+Install globally to use across all projects:
+
+```bash
+npm install -g claudeignore
+```
+
+To update to the latest version:
+
+```bash
+npm update -g claudeignore
+```
+
 ## Quick Start
 
 ### Option 1: Auto Setup (Recommended)
@@ -20,7 +34,7 @@ A Claude Code PreToolUse hook that prevents Claude from reading files that match
 Run the init command in your project directory:
 
 ```bash
-npx -y claudeignore init
+claude-ignore init
 ```
 
 This will:
@@ -49,7 +63,7 @@ This will:
         "hooks": [
           {
             "type": "command",
-            "command": "npx -y claudeignore"
+            "command": "claude-ignore"
           }
         ]
       }
@@ -60,7 +74,7 @@ This will:
 
 ## Commands
 
-### `npx -y claudeignore init`
+### `claude-ignore init`
 
 Initializes claude-ignore configuration in your project:
 
@@ -68,7 +82,7 @@ Initializes claude-ignore configuration in your project:
 - Creates `.claude/settings.json` with hook configuration if it doesn't exist
 - Shows template configuration for manual merging if `.claude/settings.json` already exists
 
-### `npx -y claudeignore` (default)
+### `claude-ignore` (default)
 
 Checks if a file should be ignored based on `.claudeignore` patterns. This is used internally by Claude Code as a PreToolUse hook.
 
